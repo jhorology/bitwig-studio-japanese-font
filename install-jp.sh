@@ -69,7 +69,7 @@ fi
 if [ "${1}x" = "uninstallx" ]; then
     if $wsl ; then
         rm "${BITWIG_LIB_EXT}/${DIST_ZIP}"
-    elif $cygin ; then
+    elif $cygwin ; then
         cygstart --action=runas rm ${DIST_ZIP} \"${BITWIG_LIB_EXT}/${DIST_ZIP}\"
     elif $linux ; then
         sudo rm "${BITWIG_LIB_EXT}/${DIST_ZIP}"
@@ -130,7 +130,7 @@ cd -
 # install font
 if $wsl ; then
     cp ${DIST_ZIP} "${BITWIG_LIB_EXT}"
-elif $cygin ; then
+elif $cygwin ; then
     cygstart --action=runas cp ${DIST_ZIP} \"${BITWIG_LIB_EXT}\"
 elif $linux ; then
     sudo cp ${DIST_ZIP} "${BITWIG_LIB_EXT}"
