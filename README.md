@@ -1,7 +1,7 @@
 ## bitwig-studio-japanese-font
 An auto-install script for fonts that support Japanese in Bitwig Studio.
 
-Bitwig Studio用の日本語フォントの生成およびインストールを自動で実行するスクリプトです。
+Bitwig Studio用日本語フォントの生成およびインストールを自動で実行するスクリプトです。
 
 ### 実行環境
 fontforgeがインストールされている事を前提とします。
@@ -34,7 +34,7 @@ Terminal.appでスクリプトを実行してください。
 ```
 
 ### Notes
- - Bitwig Studioのブラウザで音楽ライブラリ等の日本語ファイル名ファイルの表示を目的としています。
+ - Bitwig Studioブラウザで音楽ライブラリ等、日本語ファイル名の表示を目的としています。
  - 本スクリプトはBitwig Studioで使用されているSourceSans ProフォントにMgen+フォントをマージしインストールします。
  - 日本語表示可能な箇所はSourceSans Pro使用されている箇所に限定されます。
  - Bitwig Studioで使用されているフォントを抽出しマージしていますので、既存の表示には影響はないはずです...充分には検証はしていません。
