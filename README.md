@@ -5,7 +5,7 @@ Bitwig Studio用日本語フォントの生成およびインストールを自�
 
 ### 実行環境
 fontforgeがインストールされている事を前提とします。
-homebrewでのインストール例
+homebrewでのインストール例:
 ```
 brew install fontforge
 mkdir -p ~/Library/Python/2.7/lib/python/site-packages
