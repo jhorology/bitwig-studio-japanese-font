@@ -22,7 +22,7 @@ sudo apt install curl zip unzip python-minimal python-fontforge fontforge
 ```
 
 ### インストール
-ターミナルででスクリプトを実行してください。
+ターミナルでスクリプトを実行してください。
 WSLの場合は管理者でターミナルを実行してください。
 
 ```
