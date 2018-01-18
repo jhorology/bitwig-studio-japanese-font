@@ -4,22 +4,45 @@ An auto-install script for fonts that support Japanese in Bitwig Studio.
 Bitwig Studio用日本語フォントの生成およびインストールを自動で実行するスクリプトです。
 
 ### 実行環境
-fontforgeがインストールされている事を前提とします。
-homebrewでのインストール例:
+
+Mac/WSL(Ubuntu On Windows)/Cygwin/Linuxでの実行をサポートします。
+curl, unzip, zip, fontforge, python2.xがインストールされている事を前提とします。
+
+Mac homebrewでのインストール例:
 ```
 brew install fontforge
 mkdir -p ~/Library/Python/2.7/lib/python/site-packages
 echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> ~/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 ```
 
+Linux Ubuntu(WSL含む)でのインストール例:
+```
+sudo apt update
+sudo apt install curl zip unzip python-minimal python-fontforge fontforge
+```
+
 ### インストール
-Terminal.appでスクリプトを実行してください。
+ターミナルででスクリプトを実行してください。
+WSLの場合は管理者でターミナルを実行してください。
+
 ```
 ./install-jp.sh
 ```
 以下のファイルがインストールされます。
+
+Mac
 ```
 /Applications/Bitwig Studio.app/Contents/PlugIns/JavaVM.plugin/Contents/Home/lib/ext/bitwig-japanese-fonts.zip
+```
+
+Windows
+```
+C:/Program Files/Bitwig Studio/jre/lib/ext/bitwig-japanese-fonts.zip
+```
+
+Linux
+```
+/opt/Bitwig Studio/lib/jre/lib/ext/bitwig-japanese-fonts.zip
 ```
 
 ### アンインストール
@@ -43,4 +66,3 @@ Terminal.appでスクリプトを実行してください。
  - 生成されたフォントのライセンスについては以下を参照下さい。
    - SourceSans Pro https://github.com/adobe-fonts/source-sans-pro
    - Mgen+ (ムゲンプラス) http://jikasei.me/font/mgenplus
-
