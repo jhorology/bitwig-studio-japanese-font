@@ -8,7 +8,7 @@ fontforgeがインストールされている事を前提とします。
 homebrewでのインストール例
 ```
 brew install fontforge
-mkdir -p /Users/masafumi/Library/Python/2.7/lib/python/site-packages
+mkdir -p ~/Library/Python/2.7/lib/python/site-packages
 echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> ~/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 ```
 
