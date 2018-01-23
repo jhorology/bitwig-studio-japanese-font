@@ -55,6 +55,15 @@ OPENSSL=`which openssl`
 DIST_ZIP=bitwig-japanese-fonts.zip
 
 
+merge_fonts () {
+    fontforge -c '
+import fontforge
+font = fontforge.open("'$1'")
+font.mergeFonts("'$2'")
+font.generate("'$3'")
+'
+}
+
 # clean all
 if [ "${1}x" = "cleanx" ]; then
     rm -rf dist
@@ -115,12 +124,12 @@ cd -
 
 # merge jp font into original font.
 mkdir -p dist/fonts
-${PYTHON} merge-font.py fonts/SourceSansPro-Black.ttf      jp/mgenplus-2cp-black.ttf   dist/fonts/SourceSansPro-Black.ttf
-${PYTHON} merge-font.py fonts/SourceSansPro-Bold.ttf       jp/mgenplus-2cp-bold.ttf    dist/fonts/SourceSansPro-Bold.ttf
-${PYTHON} merge-font.py fonts/SourceSansPro-Semibold.ttf   jp/mgenplus-2cp-medium.ttf  dist/fonts/SourceSansPro-Semibold.ttf
-${PYTHON} merge-font.py fonts/SourceSansPro-Regular.ttf    jp/mgenplus-2cp-regular.ttf dist/fonts/SourceSansPro-Regular.ttf
-${PYTHON} merge-font.py fonts/SourceSansPro-Light.ttf      jp/mgenplus-2cp-light.ttf   dist/fonts/SourceSansPro-Light.ttf
-${PYTHON} merge-font.py fonts/SourceSansPro-ExtraLight.ttf jp/mgenplus-2cp-thin.ttf    dist/fonts/SourceSansPro-ExtraLight.ttf
+merge_fonts fonts/SourceSansPro-Black.ttf      jp/mgenplus-2cp-black.ttf   dist/fonts/SourceSansPro-Black.ttf
+merge_fonts fonts/SourceSansPro-Bold.ttf       jp/mgenplus-2cp-bold.ttf    dist/fonts/SourceSansPro-Bold.ttf
+merge_fonts fonts/SourceSansPro-Semibold.ttf   jp/mgenplus-2cp-medium.ttf  dist/fonts/SourceSansPro-Semibold.ttf
+merge_fonts fonts/SourceSansPro-Regular.ttf    jp/mgenplus-2cp-regular.ttf dist/fonts/SourceSansPro-Regular.ttf
+merge_fonts fonts/SourceSansPro-Light.ttf      jp/mgenplus-2cp-light.ttf   dist/fonts/SourceSansPro-Light.ttf
+merge_fonts fonts/SourceSansPro-ExtraLight.ttf jp/mgenplus-2cp-thin.ttf    dist/fonts/SourceSansPro-ExtraLight.ttf
 
 # create zip archive
 cd dist
