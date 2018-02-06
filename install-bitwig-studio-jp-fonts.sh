@@ -1,7 +1,6 @@
-#/bin/bash
+#/bin/bash -e
 
 PWD=`dirname $0`
-cd ${PWD}
 
 # configuration
 mac=false;
@@ -48,6 +47,7 @@ if $linux ; then
     PYTHON=/usr/bin/python2
 fi
 
+WORK_DIR=/tmp/bitwig-studio-japanese-font
 MGEN_PLUS_ZIP='mgenplus-2p-20150602.zip'
 MGEN_PLUS_ZIP_URL="https://ja.osdn.net/downloads/users/8/8595/mgenplus-2p-20150602.zip"
 MGEN_PLUS_ZIP_SHA256='33cbb75eec8569d27a0e1a5c4f2a5f7737d20060c7565eb96e2641a8636a097c'
@@ -58,21 +58,11 @@ DIST_ZIP=bitwig-japanese-fonts.zip
 merge_fonts () {
     fontforge -c '
 import fontforge
-font = fontforge.open("'$1'")
-font.mergeFonts("'$2'")
-font.generate("'$3'")
+font = fontforge.open("'"${1}"'")
+font.mergeFonts("'"${2}"'")
+font.generate("'"${3}"'")
 '
 }
-
-# clean all
-if [ "${1}x" = "cleanx" ]; then
-    rm -rf dist
-    rm -rf fonts
-    rm -rf jp
-    rm -f *.zip
-    rm -f *~
-    exit 0
-fi
 
 # uninstall
 if [ "${1}x" = "uninstallx" ]; then
@@ -88,20 +78,14 @@ if [ "${1}x" = "uninstallx" ]; then
     exit 0
 fi
 
-# cleanup
-if [ -e fonts ]; then
-    rm -rf fonts
+# work folder
+if [ -d "#{WORK_DIR}" ]; then
+    rm -rf "#{WORK_DIR}"
 fi
-if [ -e dist ]; then
-    rm -rf dist
-fi
-if [ -e jp ]; then
-    rm -rf jp
-fi
-if [ -e ${DIST_ZIP} ]; then
-    rm -f ${DIST_ZIP}
-fi    
+mkdir -p "${WORK_DIR}"
+cd "${WORK_DIR}"
 
+# extract original font files
 unzip "${BITWIG_JAR}" fonts/SourceSansPro-*.ttf
 
 # download mgen+ font
@@ -110,7 +94,7 @@ if [ ! -e ${MGEN_PLUS_ZIP} ]; then
     curl -L -O ${MGEN_PLUS_ZIP_URL}
 fi
 # validate download file
-if [ ! "${OPENSSL}x" = "x" ]; then
+if [ ! -z "${OPENSSL}" ]; then
     sha256=`${OPENSSL} sha256 ${MGEN_PLUS_ZIP}`
     if [ ! "SHA256(${MGEN_PLUS_ZIP})= ${MGEN_PLUS_ZIP_SHA256}" = "${sha256}" ]; then
         echo "warning: file:${MGEN_PLUS_ZIP} checksum validation failed."
@@ -146,3 +130,9 @@ elif $linux ; then
 elif $mac ; then
     cp ${DIST_ZIP} "${BITWIG_LIB_EXT}"
 fi
+
+# exit work folder
+cd -
+
+# cleanup
+rm -rf "${WORK_DIR}"
