@@ -26,7 +26,7 @@ sudo apt install curl zip unzip python-minimal python-fontforge fontforge
 WSLの場合は管理者でターミナルを実行してください。
 
 ```
-./install-jp.sh
+./install-bitwig-studio-jp-fonts.sh
 ```
 以下のファイルがインストールされます。
 
@@ -47,13 +47,7 @@ Linux
 
 ### アンインストール
 ```
-./install-jp.sh uninstall
-```
-
-### 不要ファイルの削除
-本ディレクトリ中のダウンロードまたは自動で生成されるファイルを削除します。
-```
-./install-jp.sh clean
+./install-bitwig-studio-jp-fonts.sh uninstall
 ```
 
 ### Notes
