@@ -53,12 +53,20 @@ MGEN_PLUS_ZIP_URL="https://ja.osdn.net/downloads/users/8/8595/mgenplus-2p-201506
 MGEN_PLUS_ZIP_SHA256='33cbb75eec8569d27a0e1a5c4f2a5f7737d20060c7565eb96e2641a8636a097c'
 OPENSSL=`which openssl`
 DIST_ZIP=bitwig-japanese-fonts.zip
+# size ratio percentage of original font/japanese font
+JP_FONT_SIZE_RAIO=90
 
-
+#  $1: original font path
+#  $2: japanese font path
+#  $3: save path
+#  $4: japanese font scale
 merge_fonts () {
     fontforge -c '
 import fontforge
 font = fontforge.open("'"${1}"'")
+jpFont = fontforge.open("'"${2}"'")
+scale = int("'"${4}"'")
+font.em = int(jpFont.em * 100 / scale)
 font.mergeFonts("'"${2}"'")
 font.generate("'"${3}"'")
 '
@@ -108,12 +116,12 @@ cd -
 
 # merge jp font into original font.
 mkdir -p dist/fonts
-merge_fonts fonts/SourceSansPro-Black.ttf      jp/mgenplus-2cp-black.ttf   dist/fonts/SourceSansPro-Black.ttf
-merge_fonts fonts/SourceSansPro-Bold.ttf       jp/mgenplus-2cp-bold.ttf    dist/fonts/SourceSansPro-Bold.ttf
-merge_fonts fonts/SourceSansPro-Semibold.ttf   jp/mgenplus-2cp-medium.ttf  dist/fonts/SourceSansPro-Semibold.ttf
-merge_fonts fonts/SourceSansPro-Regular.ttf    jp/mgenplus-2cp-regular.ttf dist/fonts/SourceSansPro-Regular.ttf
-merge_fonts fonts/SourceSansPro-Light.ttf      jp/mgenplus-2cp-light.ttf   dist/fonts/SourceSansPro-Light.ttf
-merge_fonts fonts/SourceSansPro-ExtraLight.ttf jp/mgenplus-2cp-thin.ttf    dist/fonts/SourceSansPro-ExtraLight.ttf
+merge_fonts fonts/SourceSansPro-Black.ttf      jp/mgenplus-2cp-black.ttf   dist/fonts/SourceSansPro-Black.ttf      $JP_FONT_SIZE_RAIO
+merge_fonts fonts/SourceSansPro-Bold.ttf       jp/mgenplus-2cp-bold.ttf    dist/fonts/SourceSansPro-Bold.ttf       $JP_FONT_SIZE_RAIO
+merge_fonts fonts/SourceSansPro-Semibold.ttf   jp/mgenplus-2cp-medium.ttf  dist/fonts/SourceSansPro-Semibold.ttf   $JP_FONT_SIZE_RAIO
+merge_fonts fonts/SourceSansPro-Regular.ttf    jp/mgenplus-2cp-regular.ttf dist/fonts/SourceSansPro-Regular.ttf    $JP_FONT_SIZE_RAIO
+merge_fonts fonts/SourceSansPro-Light.ttf      jp/mgenplus-2cp-light.ttf   dist/fonts/SourceSansPro-Light.ttf      $JP_FONT_SIZE_RAIO
+merge_fonts fonts/SourceSansPro-ExtraLight.ttf jp/mgenplus-2cp-thin.ttf    dist/fonts/SourceSansPro-ExtraLight.ttf $JP_FONT_SIZE_RAIO
 
 # create zip archive
 cd dist
